@@ -22,4 +22,4 @@
         image: sandirahim/httpd:1
         published_ports:
           - 8081:80
-        recreate:yes
+        recreate: yes
