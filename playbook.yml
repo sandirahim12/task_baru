@@ -1,0 +1,25 @@
+- hosts: server
+  tasks:
+    - name: install python-docker centos
+      yum:
+        name: python-docker
+        state: present
+      when:
+        - ansible_distribution == "CentOS"
+    - name:install python-docker ubuntu
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3
+        - python-docker
+      when:
+        - ansible_distribution == "Ubuntu"
+    - name: Run Container
+      docker_container:
+        name: apache2
+        state: started
+        image: sandirahim/httpd:1
+        published_ports:
+          - 8081:80
+        recreate:yes
